@@ -4,7 +4,6 @@ from matplotlib import pyplot as plt
 from scipy.stats import norm
 from torchvision.transforms import ToTensor
 from PIL import Image
-import umap
 import random
 
 def set_seed(self, seed=42):
