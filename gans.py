@@ -74,10 +74,10 @@ def comparison(generator, z_size, loader, device):
         img_real = (img_real+1)/2
 
     fig, axs = plt.subplots(1, 2, figsize=(16, 8))
-    axs[0].imshow(img_gen, cmap='gray' if in_channels == 1 else 'Blues')
+    axs[0].imshow(img_gen.squeeze(), cmap='gray' if in_channels == 1 else 'Blues')
     axs[0].set_title('Generated')
     axs[0].axis('off')
-    axs[1].imshow(img_real, cmap='gray' if in_channels == 1 else 'Blues')
+    axs[1].imshow(img_real.squeeze(), cmap='gray' if in_channels == 1 else 'Blues')
     axs[1].set_title('Real')
     axs[1].axis('off')
     return fig
@@ -260,7 +260,7 @@ def plot_interpolated(z_size, gan, loader, n_samples=5, seed=13):
             elif row == 1:
                 axs[row, col].set_title(f'Critic Score: {prob_interpolated[col].squeeze().detach().cpu().numpy():.2f}')
             img = np.rollaxis(rows[row][col].numpy(), 0, 3)
-            axs[row, col].imshow(img, cmap='gray', vmin=-1, vmax=1)
+            axs[row, col].imshow(img.squeeze(), cmap='gray', vmin=-1, vmax=1)
     fig.tight_layout()
     return fig
 
@@ -277,7 +277,7 @@ def pixel_gradients(gradients):
                 axs[row, col].set_ylabel(['Gradients'][row])
             img = np.rollaxis(rows[row][col].numpy(), 0, 3)
             axs[row, col].set_title(f'Gradient Norm: {grad_norm[col].detach().cpu().numpy():.2f}')
-            im = axs[row, col].imshow(img, cmap='gray', vmin=gradients.min(), vmax=gradients.max())
+            im = axs[row, col].imshow(img.squeeze(), cmap='gray', vmin=gradients.min(), vmax=gradients.max())
             fig.colorbar(im, ax=axs[row, col])
     fig.tight_layout()
     return fig
